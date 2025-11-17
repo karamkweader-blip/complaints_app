@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "270807224173",
+    "project_id": "buyro-app",
+    "storage_bucket": "buyro-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270807224173:android:ae40e82dd7ea6e6a91d464",
+        "android_client_info": {
+          "package_name": "com.example.buyro_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAldDNm3bcHS7yYvyj71WK5i5_mh8onWho"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
