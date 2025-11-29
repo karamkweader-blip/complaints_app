@@ -45,8 +45,8 @@ class FirebaseNotifications {
 
     
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-  //print("📩 message.notification: ${message.notification}");
-  // print("📩 message.data: ${message.data}");
+  print("📩 message.notification: ${message.notification}");
+  print("📩 message.data: ${message.data}");
 
       _showNotification(message);
       _increaseControllerUnreadCount();
