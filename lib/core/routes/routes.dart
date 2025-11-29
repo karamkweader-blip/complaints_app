@@ -21,6 +21,8 @@ class AppRoute {
   //guest
 static const String homeguest = "/homeguest";
 static const String guestaddinfo = "/guestaddinfo";
- 
-  
+   static const addComplaint = "/addComplaint";
+
+    static const complaintDetails = "/complaintDetails";
+
 }

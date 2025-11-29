@@ -9,7 +9,8 @@ class CheckAuth extends StatelessWidget {
   Future<bool> hasToken() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("user_token");
-  
+
+    print(token);
     return token != null && token.isNotEmpty;
   }
 
@@ -23,7 +24,9 @@ class CheckAuth extends StatelessWidget {
             body: Center(child: CircularProgressIndicator()),
           );
         } else {
-          return snapshot.data == true ? const Login() : const Login();
+          //HomePage
+          //
+          return snapshot.data == true ? const ComplaintsPage() : const Login();
         }
       },
     );

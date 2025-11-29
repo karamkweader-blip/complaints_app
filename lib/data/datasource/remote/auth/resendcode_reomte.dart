@@ -9,6 +9,7 @@ class ResendCodeRemote {
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({'email': email}),
     );
+    print(response);
     return response;
   }
 }

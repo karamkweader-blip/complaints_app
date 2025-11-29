@@ -1,3 +1,6 @@
+/*
+
+
 import 'package:buyro_app/core/routes/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -37,3 +40,4 @@ class OnBoardingControllerImp extends OnBoardingController {
     super.onInit();
   }
 }
+*/

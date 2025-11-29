@@ -1,5 +1,5 @@
 
-import 'package:buyro_app/view/widget/check_auth.dart';
+import 'package:buyro_app/check_auth.dart';
 import 'package:buyro_app/core/constant/color.dart';
 import 'package:buyro_app/core/localization/translation.dart';
 import 'package:buyro_app/core/services/services.dart';

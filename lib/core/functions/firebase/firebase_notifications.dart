@@ -1,3 +1,4 @@
+import 'package:buyro_app/controller/home/home_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -48,7 +49,7 @@ class FirebaseNotifications {
   // print("📩 message.data: ${message.data}");
 
       _showNotification(message);
-      // _increaseControllerUnreadCount();
+      _increaseControllerUnreadCount();
     });
       
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
@@ -58,7 +59,7 @@ class FirebaseNotifications {
  // حالة التطبيق كان مغلق تماماً وفتح من إشعار
     final initialMessage = await _messaging.getInitialMessage();
     if (initialMessage != null) {
-      // _increaseControllerUnreadCount();
+       _increaseControllerUnreadCount();
     }
 
    
@@ -125,13 +126,13 @@ class FirebaseNotifications {
   }
 }
 
-// static void _increaseControllerUnreadCount() {
-//     if (Get.isRegistered<HomeControllerImp>()) {
-//       final homeController = Get.find<HomeControllerImp>();
-//       homeController.unreadCount++;
-//       homeController.update();
-//     }
-//   }
+static void _increaseControllerUnreadCount() {
+    if (Get.isRegistered<HomeController>()) {
+      final homeController = Get.find<HomeController>();
+          homeController.unreadCount.value++; 
+
+    }
+  }
   /// هندل إشعار بالخلفية
   static Future<void> _firebaseMessagingBackgroundHandler(
     RemoteMessage message,
