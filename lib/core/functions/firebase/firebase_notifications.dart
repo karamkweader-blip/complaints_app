@@ -142,24 +142,24 @@ static void _increaseControllerUnreadCount() {
   }
 
   
-//   static Future<void> showTestNotification({
-//   required String title,
-//   required String body,
-// }) async {
-//   await _flutterLocalNotificationsPlugin.show(
-//     DateTime.now().millisecondsSinceEpoch ~/ 1000,
-//     title,
-//     body,
-//     NotificationDetails(
-//       android: AndroidNotificationDetails(
-//         channel.id,
-//         channel.name,
-//         channelDescription: channel.description,
-//         playSound: true,
-//         icon: '@mipmap/ic_launcher',
-//       ),
-//       iOS: const DarwinNotificationDetails(),
-//     ),
-//   );
-// }
+  static Future<void> showTestNotification({
+  required String title,
+  required String body,
+}) async {
+  await _flutterLocalNotificationsPlugin.show(
+    DateTime.now().millisecondsSinceEpoch ~/ 1000,
+    title,
+    body,
+    NotificationDetails(
+      android: AndroidNotificationDetails(
+        channel.id,
+        channel.name,
+        channelDescription: channel.description,
+        playSound: true,
+        icon: '@mipmap/ic_launcher',
+      ),
+      iOS: const DarwinNotificationDetails(),
+    ),
+  );
+}
 }

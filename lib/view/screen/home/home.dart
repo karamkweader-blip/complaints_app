@@ -1,4 +1,5 @@
 import 'package:buyro_app/controller/home/home_controller.dart';
+import 'package:buyro_app/core/functions/firebase/firebase_notifications.dart';
 import 'package:buyro_app/view/screen/home/ComplaintDetailsPage.dart';
 import 'package:buyro_app/view/screen/home/edit_complaint_page.dart';
 import 'package:flutter/material.dart';
@@ -65,12 +66,17 @@ class ComplaintsPage extends StatelessWidget {
       }),
     ],
   ),
-  onPressed: () {
+  onPressed: () async{
     // // 1️⃣ الانتقال لصفحة الإشعارات
     // Get.toNamed("/notifications");
+ // ✅ عرض إشعار تجريبي
+  await FirebaseNotifications.showTestNotification(
+    title: "إشعار تجريبي 🔔",
+    body: "تم الضغط على زر الجرس بنجاح",
+  );
 
-    // 2️⃣ بعد فتح الصفحة، إعادة ضبط العداد
-    controller.unreadCount.value = 0;
+  // ✅ تصفير العداد بعد الفتح
+  controller.unreadCount.value = 0;
   },
 ),
 

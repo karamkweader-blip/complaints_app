@@ -9,7 +9,6 @@ import 'package:buyro_app/core/routes/pages_routes.dart';
 //import 'package:buyro_app/view/screen/language.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'core/localization/changelocal.dart';
 
 void main() async {
