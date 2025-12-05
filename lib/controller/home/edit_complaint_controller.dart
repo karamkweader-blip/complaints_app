@@ -37,7 +37,7 @@ class EditComplaintController extends GetxController {
     place.value = complaint.location?.place ?? '';
   }
 
-  /// ✅ تحديث الموقع
+  ///  تحديث الموقع
   Future<void> getUserLocation() async {
     try {
       LocationPermission permission = await Geolocator.checkPermission();
@@ -64,7 +64,7 @@ class EditComplaintController extends GetxController {
     }
   }
 
-  /// ✅ حفظ التعديلات (API حقيقي)
+  
   Future<void> updateComplaint() async {
     try {
       isLoading.value = true;
@@ -100,7 +100,6 @@ class EditComplaintController extends GetxController {
     }
   }
 
-  /// ✅ حذف الشكوى (API حقيقي)
   Future<void> deleteComplaint() async {
     try {
       isLoading.value = true;

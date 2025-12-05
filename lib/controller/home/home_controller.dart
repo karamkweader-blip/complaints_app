@@ -1,4 +1,6 @@
 import 'package:buyro_app/Model/complaint_model.dart';
+import 'package:buyro_app/core/routes/routes.dart';
+import 'package:buyro_app/data/datasource/remote/auth/logout_remote.dart';
 import 'package:buyro_app/data/datasource/remote/complaints/complaints_remote.dart';
 import 'package:buyro_app/data/datasource/remote/complaints/delete&update_remote.dart';
 import 'package:flutter/material.dart';
@@ -6,15 +8,21 @@ import 'package:get/get.dart';
 import 'package:buyro_app/core/services/services.dart';
 import 'dart:convert';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class HomeController extends GetxController {
   var complaints = <Complaint>[].obs;
   var isLoading = false.obs;
-  
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   var unreadCount = 0.obs;
-
+  LogoutRemote logoutRemote = LogoutRemote();
   ComplaintRemote service = ComplaintRemote();
   final complaintService = DeleteAndUpdateComplaints();
   MyServices myServices = Get.find();
+
+  void openDrawer() {
+    scaffoldKey.currentState?.openDrawer();
+  }
 
   @override
   void onInit() {
@@ -82,6 +90,28 @@ class HomeController extends GetxController {
       );
     } finally {
       isLoading.value = false;
+    }
+  }
+
+  @override
+  logout() async {
+    Get.dialog(
+      const Center(child: CircularProgressIndicator()),
+      barrierDismissible: false,
+    );
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("user_token").toString();
+    // prefs.clear();
+
+    final response = await logoutRemote.deletetoken(token: token);
+    print(response);
+    if (response.statusCode == 200) {
+      await prefs.clear();
+      Get.back();
+      //print(token);
+      Get.offAllNamed(AppRoute.login);
+    } else {
+      print(response.body);
     }
   }
 

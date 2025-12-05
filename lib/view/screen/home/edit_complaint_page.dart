@@ -11,8 +11,7 @@ class EditComplaintPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller =
-        Get.put(EditComplaintController(complaint));
+    final controller = Get.put(EditComplaintController(complaint));
 
     return Scaffold(
       appBar: AppBar(
@@ -29,8 +28,7 @@ class EditComplaintPage extends StatelessWidget {
           child: Column(
             children: [
               _buildField("نوع الشكوى", controller.typeController),
-              _buildField(
-                  "الرقم المرجعي", controller.referenceController),
+              _buildField("الرقم المرجعي", controller.referenceController),
               _buildField(
                 "الوصف",
                 controller.descriptionController,
@@ -39,7 +37,7 @@ class EditComplaintPage extends StatelessWidget {
 
               const SizedBox(height: 16),
 
-              /// ✅ الموقع الحالي (من الشكوى أو من المستخدم)
+              /// الموقع الحالي )
               Obx(
                 () => ListTile(
                   leading: const Icon(Icons.location_on),
@@ -62,22 +60,20 @@ class EditComplaintPage extends StatelessWidget {
 
               const SizedBox(height: 30),
 
-              /// ✅ زر حفظ التعديلات
-             SizedBox(
-  width: double.infinity,
-  child: ElevatedButton(
-    style: ElevatedButton.styleFrom(
-      backgroundColor: AppColor.primaryColor,
-      padding: const EdgeInsets.symmetric(vertical: 14),
-    ),
-    onPressed: controller.updateComplaint, // ✅ استدعاء التعديل فقط
-    child: const Text(
-      "حفظ التعديلات",
-      style: TextStyle(fontSize: 16),
-    ),
-  ),
-),
-
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColor.primaryColor,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                  ),
+                  onPressed: controller.updateComplaint,
+                  child: const Text(
+                    "حفظ التعديلات",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+              ),
             ],
           ),
         );
@@ -97,9 +93,7 @@ class EditComplaintPage extends StatelessWidget {
         maxLines: maxLines,
         decoration: InputDecoration(
           labelText: label,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         ),
       ),
     );

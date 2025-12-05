@@ -1,7 +1,7 @@
 import 'package:buyro_app/controller/home/home_controller.dart';
-import 'package:buyro_app/core/functions/firebase/firebase_notifications.dart';
 import 'package:buyro_app/view/screen/home/ComplaintDetailsPage.dart';
 import 'package:buyro_app/view/screen/home/edit_complaint_page.dart';
+import 'package:buyro_app/view/widget/account_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:buyro_app/Model/complaint_model.dart';
@@ -15,9 +15,11 @@ class ComplaintsPage extends StatelessWidget {
     final controller = Get.put(HomeController());
 
     return Scaffold(
+      key: controller.scaffoldKey,
+  drawer: AccountDrawer(),
       appBar: AppBar(
         backgroundColor: AppColor.primaryColor,
-        centerTitle: true, // ✅ العنوان في المنتصف
+        centerTitle: true,
         title: const Text(
           "شكاوى المستخدم",
           style: TextStyle(color: Colors.white),
@@ -25,10 +27,8 @@ class ComplaintsPage extends StatelessWidget {
         foregroundColor: Colors.white,
         leading: IconButton(
           icon: const Icon(Icons.menu, color: Colors.white),
-          onPressed: () {},
+          onPressed: controller.openDrawer,
         ),
-
-        // ✅ أيقونة الإشعارات عاليمين
         actions: [
           IconButton(
   icon: Stack(
@@ -67,15 +67,9 @@ class ComplaintsPage extends StatelessWidget {
     ],
   ),
   onPressed: () async{
-    // // 1️⃣ الانتقال لصفحة الإشعارات
-    // Get.toNamed("/notifications");
- // ✅ عرض إشعار تجريبي
-  await FirebaseNotifications.showTestNotification(
-    title: "إشعار تجريبي 🔔",
-    body: "تم الضغط على زر الجرس بنجاح",
-  );
-
-  // ✅ تصفير العداد بعد الفتح
+    
+ 
+Get.toNamed("/notifications");
   controller.unreadCount.value = 0;
   },
 ),
@@ -134,7 +128,6 @@ class ComplaintCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              /// ✅ العنوان + الحالة
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -169,7 +162,6 @@ class ComplaintCard extends StatelessWidget {
 
               const SizedBox(height: 10),
 
-              /// ✅ الوصف
               Text(
                 complaint.description,
                 maxLines: 3,
@@ -179,7 +171,7 @@ class ComplaintCard extends StatelessWidget {
 
               const SizedBox(height: 10),
 
-              /// ✅ الرقم المرجعي
+              ///  الرقم المرجعي
               Row(
                 children: [
                   const Icon(Icons.confirmation_number, size: 16),
@@ -191,7 +183,7 @@ class ComplaintCard extends StatelessWidget {
                 ],
               ),
 
-              /// ✅ الموقع
+              ///  الموقع
               if (complaint.location != null) ...[
                 const SizedBox(height: 8),
                 Row(
@@ -211,7 +203,7 @@ class ComplaintCard extends StatelessWidget {
                 ),
               ],
 
-              /// ✅ المرفقات
+              /// المرفقات
               if (complaint.attachments != null &&
                   complaint.attachments!.isNotEmpty) ...[
                 const SizedBox(height: 10),
@@ -240,7 +232,7 @@ class ComplaintCard extends StatelessWidget {
               const SizedBox(height: 14),
               const Divider(),
 
-              /// ✅ أزرار التعديل والحذف
+              ///  أزرار التعديل والحذف
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [

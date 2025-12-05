@@ -137,7 +137,8 @@ class ComplaintController extends GetxController {
 
           await Get.find<HomeController>().fetchComplaints();
 
-          Get.offAllNamed("/home");
+      Get.back();
+
         } else {
           Get.snackbar("فشل", "حدث خطأ حاول مرة اخرى");
         }

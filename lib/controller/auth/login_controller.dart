@@ -8,7 +8,6 @@ abstract class LoginController extends GetxController {
   login();
   goToSignUp();
   goToForgetPassword();
-  goToGuest();
 }
 
 class LoginControllerImp extends LoginController {
@@ -38,10 +37,10 @@ class LoginControllerImp extends LoginController {
       print(response.body);
 
       if (response.statusCode == 200) {
-      Get.dialog(
-        const Center(child: CircularProgressIndicator()),
-        barrierDismissible: false,
-      );
+        Get.dialog(
+          const Center(child: CircularProgressIndicator()),
+          barrierDismissible: false,
+        );
         Get.offNamed(
           AppRoute.verfiyCode,
           arguments: {'type': VerifyCodeType.login, 'email': email.text},
@@ -78,10 +77,5 @@ class LoginControllerImp extends LoginController {
   @override
   goToForgetPassword() {
     Get.toNamed(AppRoute.forgetPassword);
-  }
-
-  @override
-  goToGuest(){
-    Get.toNamed(AppRoute.homeguest);
   }
 }

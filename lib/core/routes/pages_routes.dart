@@ -9,6 +9,7 @@ import 'package:buyro_app/view/screen/auth/signup.dart';
 import 'package:buyro_app/view/screen/home/ComplaintDetailsPage.dart';
 import 'package:buyro_app/view/screen/home/complaint_screen.dart';
 import 'package:buyro_app/view/screen/home/home.dart';
+import 'package:buyro_app/view/screen/home/notifications_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -22,14 +23,13 @@ Map<String, Widget Function(BuildContext)> routes = {
   AppRoute.checkCode: (context) => const CheckCode(),
   AppRoute.resetPassword: (context) => const ResetPassword(),
   AppRoute.successResetpassword: (context) => const SuccessResetPassword(),
-  ///OnBoarding
   ////inside app
 AppRoute.home: (context) => const ComplaintsPage(),
 
 
   //// Add Complaint
   "/addComplaint": (context) => ComplaintScreen(),
-
+ "/notifications": (context) => NotificationsPage(),
 "/complaintDetails": (context) => ComplaintDetailsPage(
       complaintId: Get.arguments,
     ),
