@@ -8,11 +8,13 @@ import 'package:buyro_app/Model/complaint_model.dart';
 import 'package:buyro_app/core/constant/color.dart';
 
 class ComplaintsPage extends StatelessWidget {
-  const ComplaintsPage({super.key});
+   ComplaintsPage({super.key}) {
+    Get.lazyPut<HomeController>(() => HomeController(), fenix: true);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(HomeController());
+    final controller = Get.find<HomeController>();
 
     return Scaffold(
       key: controller.scaffoldKey,
@@ -107,6 +109,7 @@ Get.toNamed("/notifications");
   }
 }
 
+
 class ComplaintCard extends StatelessWidget {
   final Complaint complaint;
 
@@ -115,166 +118,166 @@ class ComplaintCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Get.to(() => ComplaintDetailsPage(complaintId: complaint.id));
-      },
-      child: Card(
-        elevation: 6,
-        shadowColor: Colors.black12,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      borderRadius: BorderRadius.circular(16),
+      onTap: () => Get.to(() => ComplaintDetailsPage(complaintId: complaint.id)),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 350),
+        curve: Curves.fastOutSlowIn,
         margin: const EdgeInsets.only(bottom: 14),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              Colors.white,
+              Colors.blue.shade50,
+            ],
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12.withOpacity(.08),
+              blurRadius: 12,
+              spreadRadius: 1,
+              offset: const Offset(0, 4),
+            )
+          ],
+        ),
+
         child: Padding(
-          padding: const EdgeInsets.all(14),
+          padding: const EdgeInsets.all(18),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
+              /// عنوان نوع الشكوى + الحالة
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     complaint.type,
                     style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
                       color: AppColor.primaryColor,
                     ),
                   ),
+
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 4,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     decoration: BoxDecoration(
-                      color: Colors.orange.shade100,
-                      borderRadius: BorderRadius.circular(20),
+                      gradient: LinearGradient(
+                        colors: [const Color.fromARGB(255, 107, 234, 158), const Color.fromARGB(255, 5, 121, 36)],
+                      ),
+                      borderRadius: BorderRadius.circular(30),
                     ),
                     child: Text(
                       complaint.status,
-                      style: const TextStyle(
-                        fontSize: 12,
-                        color: Colors.orange,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
               ),
 
-              const SizedBox(height: 10),
+              const SizedBox(height: 12),
 
+              /// وصف الشكوى
               Text(
                 complaint.description,
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(fontSize: 14, height: 1.6),
+                style: TextStyle(fontSize: 15, height: 1.6, color: Colors.grey.shade800),
               ),
 
-              const SizedBox(height: 10),
+              const SizedBox(height: 12),
 
-              ///  الرقم المرجعي
               Row(
                 children: [
-                  const Icon(Icons.confirmation_number, size: 16),
+                  const Icon(Icons.confirmation_number, size: 17, color: Colors.black54),
                   const SizedBox(width: 6),
-                  Text(
-                    complaint.referenceNumber,
-                    style: const TextStyle(fontSize: 13, color: Colors.grey),
-                  ),
+                  Text(complaint.referenceNumber, style: TextStyle(color: Colors.black54)),
                 ],
               ),
 
-              ///  الموقع
-              if (complaint.location != null) ...[
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    const Icon(Icons.location_on, size: 16, color: Colors.grey),
-                    const SizedBox(width: 6),
-                    Expanded(
-                      child: Text(
-                        "${complaint.location!.place} (${complaint.location!.latitude}, ${complaint.location!.longitude})",
-                        style: const TextStyle(
-                          fontSize: 13,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+           if (complaint.location != null) ...[
+  const SizedBox(height: 8),
+  Row(
+    children: [
+      const Icon(Icons.location_on, size: 17, color: Colors.red),
+      const SizedBox(width: 6),
+      Expanded(
+        child: Text(
+          complaint.location!.place,  // فقط الاسم
+          style: const TextStyle(fontSize: 13, color: Colors.black87),
+        ),
+      ),
+    ],
+  ),
+],
 
-              /// المرفقات
-              if (complaint.attachments != null &&
-                  complaint.attachments!.isNotEmpty) ...[
-                const SizedBox(height: 10),
-                const Text(
-                  "📎 المرفقات:",
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                ),
+
+              if (complaint.attachments != null && complaint.attachments!.isNotEmpty) ...[
+                const SizedBox(height: 12),
+                const Text("📎 المرفقات:", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 6),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children:
-                      complaint.attachments!
-                          .map(
-                            (a) => Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 2),
-                              child: Text(
-                                "• ${a.fileName}",
-                                style: const TextStyle(fontSize: 13),
-                              ),
-                            ),
-                          )
-                          .toList(),
-                ),
+                ...complaint.attachments!.map((a) => Text("• ${a.fileName}", style: const TextStyle(fontSize: 14))),
               ],
 
-              const SizedBox(height: 14),
-              const Divider(),
+              const SizedBox(height: 16),
+              const Divider(thickness: .6),
 
-              ///  أزرار التعديل والحذف
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   TextButton.icon(
-                    onPressed: () {
-                      Get.to(() => EditComplaintPage(complaint: complaint));
-                    },
-                    icon: const Icon(Icons.edit, color: Colors.blue),
-                    label: const Text(
-                      "تعديل",
-                      style: TextStyle(color: Colors.blue),
-                    ),
-                  ),
+                    onPressed: ()  async {
 
-                  const SizedBox(width: 8),
+    final result = await Get.to(() => EditComplaintPage(complaint: complaint));
+
+
+    if (result == true) {
+      final homeController = Get.find<HomeController>();
+      await homeController.fetchComplaints();
+    }
+  },
+                    icon: const Icon(Icons.edit, color: Colors.blue),
+                    label: const Text("تعديل", style: TextStyle(color: Colors.blue)),
+                  ),
                   TextButton.icon(
                     onPressed: () {
                       Get.defaultDialog(
                         title: "تأكيد الحذف",
                         middleText: "هل أنت متأكد من حذف هذه الشكوى؟",
-                        textConfirm: "نعم",
-                        textCancel: "إلغاء",
+                        textConfirm: "نعم", textCancel: "إلغاء",
                         confirmTextColor: Colors.white,
                         onConfirm: () {
-                          final controller = Get.find<HomeController>();
-                          controller.deleteComplaint(complaint.id);
+                          Get.find<HomeController>().deleteComplaint(complaint.id);
                           Get.back();
                         },
                       );
                     },
                     icon: const Icon(Icons.delete, color: Colors.red),
-                    label: const Text(
-                      "حذف",
-                      style: TextStyle(color: Colors.red),
-                    ),
+                    label: const Text("حذف", style: TextStyle(color: Colors.red)),
                   ),
                 ],
-              ),
+              )
+
             ],
           ),
         ),
       ),
     );
   }
+
+
+
+
+
+
+
+
+
+
+
+  
 }

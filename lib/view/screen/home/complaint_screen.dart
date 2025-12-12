@@ -54,8 +54,7 @@ class ComplaintScreen extends StatelessWidget {
                     border: OutlineInputBorder(),
                   ),
                   maxLines: 3,
-                  validator: (val) =>
-                      val!.isEmpty ? "ادخل وصف الشكوى" : null,
+                  validator: (val) => val!.isEmpty ? "ادخل وصف الشكوى" : null,
                 ),
                 const SizedBox(height: 15),
                 TextFormField(
@@ -65,6 +64,16 @@ class ComplaintScreen extends StatelessWidget {
                     border: OutlineInputBorder(),
                   ),
                   validator: (val) => val!.isEmpty ? "ادخل نوع الشكوى" : null,
+                ),
+                const SizedBox(height: 15),
+                TextFormField(
+                  controller: controller.location,
+                  decoration: const InputDecoration(
+                    labelText: "الموقع",
+                    border: OutlineInputBorder(),
+                    hintText: "اكتب الموقع هنا",
+                  ),
+                  validator: (val) => val!.isEmpty ? "ادخل الموقع" : null,
                 ),
                 const SizedBox(height: 15),
                 InkWell(
@@ -87,20 +96,6 @@ class ComplaintScreen extends StatelessWidget {
                           : "اختر ملف"),
                     ),
                   ),
-                ),
-                const SizedBox(height: 15),
-                ElevatedButton(
-                  onPressed: () {
-                    controller.getUserLocation();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColor.primaryColor,
-                    foregroundColor: AppColor.backgroundcolor,
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                  ),
-                  child: Text(controller.location != null
-                      ? "الموقع: ${controller.location!['place']}"
-                      : "تحديد موقعي"),
                 ),
                 const SizedBox(height: 20),
                 controller.isLoading

@@ -1,4 +1,4 @@
-import 'dart:io';
+   import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -19,7 +19,7 @@ class AttachmentViewerPage extends StatelessWidget {
     required this.fileId,
     required this.mimeType,
     required this.fileName,
-    required this.token,
+    required this.token, required String fileUrl,
   });
 
   @override

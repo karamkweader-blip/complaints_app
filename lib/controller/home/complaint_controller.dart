@@ -3,22 +3,18 @@ import 'package:buyro_app/controller/home/home_controller.dart';
 import 'package:buyro_app/data/datasource/remote/complaints/complaints_remote.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:geocoding/geocoding.dart';
 
 class ComplaintController extends GetxController {
   GlobalKey<FormState> formState = GlobalKey<FormState>();
   TextEditingController description = TextEditingController();
   TextEditingController type = TextEditingController();
+  TextEditingController location = TextEditingController(); // نص الموقع
   int? selectedGovernmentEntityId;
   File? selectedFile;
   bool isLoading = false;
 
   // الوزارات من الباك
   List<Map<String, dynamic>> governmentEntities = [];
-
-  // الموقع
-  Map<String, dynamic>? location;
 
   @override
   void onInit() {
@@ -35,11 +31,7 @@ class ComplaintController extends GetxController {
       update();
       var entities = await ComplaintRemote().getGovernmentEntities();
       governmentEntities =
-          entities
-              .map<Map<String, dynamic>>(
-                (e) => {"id": e["id"], "name": e["name"]},
-              )
-              .toList();
+          entities.map<Map<String, dynamic>>((e) => {"id": e["id"], "name": e["name"]}).toList();
       update();
     } catch (e) {
       Get.snackbar("خطأ", "فشل جلب الجهات الحكومية");
@@ -58,49 +50,10 @@ class ComplaintController extends GetxController {
   }
 
   // -----------------------------
-  // تحديد موقع المستخدم
-  Future<void> getUserLocation() async {
-    try {
-      // 1️⃣ التحقق من الأذونات
-      LocationPermission permission = await Geolocator.checkPermission();
-      if (permission == LocationPermission.denied ||
-          permission == LocationPermission.deniedForever) {
-        permission = await Geolocator.requestPermission();
-      }
-
-      if (permission == LocationPermission.denied ||
-          permission == LocationPermission.deniedForever) {
-        Get.snackbar("خطأ", "لا توجد أذونات للوصول إلى الموقع");
-        return;
-      }
-
-      // 2️⃣ الحصول على الموقع
-      Position pos = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
-      );
-
-      // 3️⃣ بدون Google API (لتجنب 403)
-      location = {
-        "latitude": pos.latitude.toString(),
-        "longitude": pos.longitude.toString(),
-        "place": " موقعك الحالي ",
-      };
-
-      update();
-      print("📍 الموقع تم تحديده: $location");
-    } catch (e) {
-      print("⚠️ خطأ تحديد الموقع: $e");
-      Get.snackbar("خطأ", "تعذر تحديد الموقع");
-    }
-  }
-
-  // -----------------------------
   // ارسال الشكوى
   // -----------------------------
   submitComplaint() async {
-    if (formState.currentState!.validate() &&
-        selectedGovernmentEntityId != null &&
-        location != null) {
+    if (formState.currentState!.validate() && selectedGovernmentEntityId != null) {
       isLoading = true;
       update();
 
@@ -110,7 +63,7 @@ class ComplaintController extends GetxController {
         print("description: ${description.text}");
         print("type: ${type.text}");
         print("file: ${selectedFile?.path ?? "NO FILE"}");
-        print("location: $location");
+        print("location: ${location.text}");
         print("==================================");
 
         var response = await ComplaintRemote().createComplaint(
@@ -118,7 +71,7 @@ class ComplaintController extends GetxController {
           description: description.text,
           type: type.text,
           file: selectedFile,
-          location: location!,
+          location: {"place": location.text}, // الباك يحتاج مصفوفة/كائن
         );
 
         print("Status Code: ${response.statusCode}");
@@ -130,15 +83,13 @@ class ComplaintController extends GetxController {
 
           description.clear();
           type.clear();
+          location.clear();
           selectedGovernmentEntityId = null;
           selectedFile = null;
-          location = null;
           update();
 
           await Get.find<HomeController>().fetchComplaints();
-
-      Get.back();
-
+          Get.back();
         } else {
           Get.snackbar("فشل", "حدث خطأ حاول مرة اخرى");
         }
@@ -149,7 +100,7 @@ class ComplaintController extends GetxController {
       isLoading = false;
       update();
     } else {
-      Get.snackbar("تنبيه", "رجاءً أكمل جميع الحقول واختر الموقع");
+      Get.snackbar("تنبيه", "رجاءً أكمل جميع الحقول");
     }
   }
 
@@ -157,6 +108,7 @@ class ComplaintController extends GetxController {
   void onClose() {
     description.dispose();
     type.dispose();
+    location.dispose();
     super.onClose();
   }
 }

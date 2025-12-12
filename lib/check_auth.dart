@@ -25,8 +25,8 @@ class CheckAuth extends StatelessWidget {
           );
         } else {
           //HomePage
-          //
-          return snapshot.data == true ? const ComplaintsPage() : const Login();
+          //ComplaintsPage
+          return snapshot.data == true ?  ComplaintsPage() : const Login();
         }
       },
     );

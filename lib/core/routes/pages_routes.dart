@@ -24,7 +24,7 @@ Map<String, Widget Function(BuildContext)> routes = {
   AppRoute.resetPassword: (context) => const ResetPassword(),
   AppRoute.successResetpassword: (context) => const SuccessResetPassword(),
   ////inside app
-AppRoute.home: (context) => const ComplaintsPage(),
+AppRoute.home: (context) =>  ComplaintsPage(),
 
 
   //// Add Complaint

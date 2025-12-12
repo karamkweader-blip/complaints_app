@@ -15,7 +15,7 @@ class EditComplaintController extends GetxController {
   late TextEditingController typeController;
   late TextEditingController descriptionController;
   late TextEditingController referenceController;
-
+ late TextEditingController locationController;
   var latitude = ''.obs;
   var longitude = ''.obs;
   var place = ''.obs;
@@ -31,38 +31,40 @@ class EditComplaintController extends GetxController {
         TextEditingController(text: complaint.description);
     referenceController =
         TextEditingController(text: complaint.referenceNumber);
-
-    latitude.value = complaint.location?.latitude ?? '';
-    longitude.value = complaint.location?.longitude ?? '';
-    place.value = complaint.location?.place ?? '';
+locationController = TextEditingController(
+  text: complaint.location?.place ?? '',
+);
+    // latitude.value = complaint.location?.latitude ?? '';
+    // longitude.value = complaint.location?.longitude ?? '';
+    // place.value = complaint.location?.place ?? '';
   }
 
   ///  تحديث الموقع
-  Future<void> getUserLocation() async {
-    try {
-      LocationPermission permission = await Geolocator.checkPermission();
-      if (permission == LocationPermission.denied ||
-          permission == LocationPermission.deniedForever) {
-        permission = await Geolocator.requestPermission();
-      }
+  // Future<void> getUserLocation() async {
+  //   try {
+  //     LocationPermission permission = await Geolocator.checkPermission();
+  //     if (permission == LocationPermission.denied ||
+  //         permission == LocationPermission.deniedForever) {
+  //       permission = await Geolocator.requestPermission();
+  //     }
 
-      if (permission == LocationPermission.denied ||
-          permission == LocationPermission.deniedForever) {
-        Get.snackbar("خطأ", "لا توجد أذونات للموقع");
-        return;
-      }
+  //     if (permission == LocationPermission.denied ||
+  //         permission == LocationPermission.deniedForever) {
+  //       Get.snackbar("خطأ", "لا توجد أذونات للموقع");
+  //       return;
+  //     }
 
-      final pos = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
-      );
+  //     final pos = await Geolocator.getCurrentPosition(
+  //       desiredAccuracy: LocationAccuracy.high,
+  //     );
 
-      latitude.value = pos.latitude.toString();
-      longitude.value = pos.longitude.toString();
-      place.value = "موقعك الحالي";
-    } catch (e) {
-      Get.snackbar("خطأ", "فشل تحديد الموقع");
-    }
-  }
+  //     latitude.value = pos.latitude.toString();
+  //     longitude.value = pos.longitude.toString();
+  //     place.value = "موقعك الحالي";
+  //   } catch (e) {
+  //     Get.snackbar("خطأ", "فشل تحديد الموقع");
+  //   }
+  // }
 
   
   Future<void> updateComplaint() async {
@@ -73,11 +75,13 @@ class EditComplaintController extends GetxController {
         "type": typeController.text,
         "description": descriptionController.text,
         "reference_number": referenceController.text,
-        "location": {
-          "latitude": latitude.value,
-          "longitude": longitude.value,
-          "place": place.value,
-        },
+          "location": {
+  "place": locationController.text,
+},
+        //   "latitude": latitude.value,
+        //   "longitude": longitude.value,
+        //   "place": place.value,
+        // },
       };
 
       final response = await _api.updateComplaint(
@@ -128,6 +132,7 @@ class EditComplaintController extends GetxController {
     typeController.dispose();
     descriptionController.dispose();
     referenceController.dispose();
+    locationController.dispose();
     super.onClose();
   }
 }

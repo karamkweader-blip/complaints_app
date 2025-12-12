@@ -34,29 +34,29 @@ class EditComplaintPage extends StatelessWidget {
                 controller.descriptionController,
                 maxLines: 4,
               ),
-
+ _buildField("الموقع", controller.locationController),
               const SizedBox(height: 16),
 
-              /// الموقع الحالي )
-              Obx(
-                () => ListTile(
-                  leading: const Icon(Icons.location_on),
-                  title: Text(
-                    controller.place.value.isEmpty
-                        ? "لم يتم تحديد الموقع"
-                        : controller.place.value,
-                  ),
-                  subtitle: Text(
-                    controller.latitude.value.isEmpty
-                        ? ""
-                        : "${controller.latitude.value} , ${controller.longitude.value}",
-                  ),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.my_location),
-                    onPressed: controller.getUserLocation,
-                  ),
-                ),
-              ),
+              // /// الموقع الحالي )
+              // Obx(
+              //   () => ListTile(
+              //     leading: const Icon(Icons.location_on),
+              //     title: Text(
+              //       controller.place.value.isEmpty
+              //           ? "لم يتم تحديد الموقع"
+              //           : controller.place.value,
+              //     ),
+              //     subtitle: Text(
+              //       controller.latitude.value.isEmpty
+              //           ? ""
+              //           : "${controller.latitude.value} , ${controller.longitude.value}",
+              //     ),
+              //     trailing: IconButton(
+              //       icon: const Icon(Icons.my_location),
+              //       onPressed: controller.getUserLocation,
+              //     ),
+              //   ),
+              // ),
 
               const SizedBox(height: 30),
 
