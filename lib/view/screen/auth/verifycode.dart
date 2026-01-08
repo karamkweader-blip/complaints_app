@@ -21,6 +21,30 @@ class VerfiyCode extends StatelessWidget {
       VerifyCodeControllerImp(type: type, email: email),
     );
 
+       // دالة لحساب عرض الحقل بناءً على حجم الشاشة
+    double calculateFieldWidth() {
+      double width = Get.width;
+      if (width > 600) { // Tablet
+        return 60;
+      } else if (width > 400) { // Mobile كبير
+        return 50;
+      } else { // Mobile صغير
+        return 45;
+      }
+    }
+
+    // دالة لحساب حجم الخط
+    double getResponsiveFontSize(double baseSize) {
+      double width = Get.width;
+      if (width > 600) { // Tablet
+        return baseSize * 1.1;
+      } else if (width > 400) { // Mobile كبير
+        return baseSize;
+      } else { // Mobile صغير
+        return baseSize * 0.9;
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -34,7 +58,10 @@ class VerfiyCode extends StatelessWidget {
         ),
       ),
       body: Container(
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+        padding: EdgeInsets.symmetric(
+          vertical: Get.height * 0.03,
+          horizontal: Get.width * 0.07,
+        ),
         child: ListView(
           children: [
             const SizedBox(height: 20),
@@ -46,8 +73,8 @@ class VerfiyCode extends StatelessWidget {
             const SizedBox(height: 15),
             OTPTextField(
               length: 6,
-              width: MediaQuery.of(context).size.width,
-              fieldWidth: 50,
+               width: Get.width * 0.9, 
+                fieldWidth: calculateFieldWidth(),
               style: const TextStyle(fontSize: 17),
               textFieldAlignment: MainAxisAlignment.spaceAround,
               fieldStyle: FieldStyle.box,

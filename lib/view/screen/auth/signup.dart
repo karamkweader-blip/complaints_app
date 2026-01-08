@@ -16,6 +16,17 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SignUpControllerImp controller = Get.put(SignUpControllerImp());
+
+     double getResponsiveFontSize(double baseSize) {
+      double width = Get.width;
+      if (width > 600) { // Tablet
+        return baseSize * 1.2;
+      } else if (width > 400) { // Mobile كبير
+        return baseSize;
+      } else { // Mobile صغير
+        return baseSize * 0.9;
+      }
+    }
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -29,7 +40,10 @@ class SignUp extends StatelessWidget {
         ),
       ),
       body: Container(
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+        padding: EdgeInsets.symmetric(
+          vertical: Get.height * 0.02,
+          horizontal: Get.width * 0.06,
+        ),
         child: Form(
              key: controller.formstate,
           child: ListView(
