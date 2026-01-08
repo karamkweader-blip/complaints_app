@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:buyro_app/Model/complaint_model.dart';
 import 'package:get/get.dart';
 import 'package:buyro_app/data/datasource/remote/complaints/complaints_remote.dart';
 import 'package:buyro_app/core/services/services.dart';

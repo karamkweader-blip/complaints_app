@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:buyro_app/core/services/services.dart';
 import 'dart:convert';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeController extends GetxController {
@@ -93,7 +92,7 @@ class HomeController extends GetxController {
     }
   }
 
-  @override
+  
   logout() async {
     Get.dialog(
       const Center(child: CircularProgressIndicator()),

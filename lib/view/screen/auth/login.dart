@@ -22,7 +22,6 @@ class Login extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: AppColor.backgroundcolor,
         elevation: 0.0,
         title: Text(
           'Sign In',
@@ -58,19 +57,19 @@ class Login extends StatelessWidget {
                   // mycontroller: ,
                 ),
                 CustonTextFormAuth(
-                        obscureText: controller.isshowpassword,
-                        onTapIcon: () {
-                          controller.showPassword();
-                        },
-                        valid: (val) {
-                          return validInput(val!, 5, 30, "password");
-                        },
-                        mycontroller: controller.password,
-                        hinttext: "13".tr,
-                        iconData: Icons.lock_outline,
-                        labeltext: "19".tr,
-                      ),
-              
+                  obscureText: controller.isshowpassword,
+                  onTapIcon: () {
+                    controller.showPassword();
+                  },
+                  valid: (val) {
+                    return validInput(val!, 5, 30, "password");
+                  },
+                  mycontroller: controller.password,
+                  hinttext: "13".tr,
+                  iconData: Icons.lock_outline,
+                  labeltext: "19".tr,
+                ),
+
                 InkWell(
                   onTap: () {
                     controller.goToForgetPassword();
@@ -83,7 +82,7 @@ class Login extends StatelessWidget {
                     controller.login();
                   },
                 ),
-              
+
                 const SizedBox(height: 20),
                 CustomTextSignUpOrSignIn(
                   textone: "16".tr,

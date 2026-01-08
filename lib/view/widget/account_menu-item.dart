@@ -19,62 +19,43 @@ class AccountMenuItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final itemColor = color ?? AppColor.primaryColor;
 
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(14),
-        onTap: onTap,
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-          decoration: BoxDecoration(
-            color: Colors.grey.shade100,
-            borderRadius: BorderRadius.circular(14),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.04),
-                blurRadius: 6,
-                offset: const Offset(0, 3),
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(15),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        decoration: BoxDecoration(
+          color: color != null ? color!.withOpacity(0.05) : Colors.grey.shade50,
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(color: Colors.grey.shade100),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: itemColor.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(10),
               ),
-            ],
-          ),
-          child: Row(
-            children: [
-           
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: itemColor.withOpacity(0.12),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  icon,
-                  color: itemColor,
-                  size: 22,
+              child: Icon(icon, color: itemColor, size: 22),
+            ),
+            const SizedBox(width: 15),
+            Expanded(
+              child: Text(
+                label,
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: color ?? Colors.black87,
                 ),
               ),
-
-              const SizedBox(width: 14),
-
-              /// ✅ النص
-              Expanded(
-                child: Text(
-                  label,
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                    color: color ?? Colors.black87,
-                  ),
-                ),
-              ),
-
-              /// ✅ سهم
-              Icon(
-                Icons.arrow_forward_ios,
-                size: 16,
-                color: Colors.grey.shade500,
-              ),
-            ],
-          ),
+            ),
+            Icon(
+              Icons.arrow_forward_ios_rounded,
+              size: 14,
+              color: Colors.grey.shade400,
+            ),
+          ],
         ),
       ),
     );

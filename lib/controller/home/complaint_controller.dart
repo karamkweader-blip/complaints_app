@@ -12,8 +12,6 @@ class ComplaintController extends GetxController {
   int? selectedGovernmentEntityId;
   File? selectedFile;
   bool isLoading = false;
-
-  // الوزارات من الباك
   List<Map<String, dynamic>> governmentEntities = [];
 
   @override

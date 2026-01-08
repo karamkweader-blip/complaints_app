@@ -19,6 +19,8 @@ class SignUpRemote {
         'password_confirmation': confpassword,
       }),
     );
+    print(response.statusCode);
+
     return response;
   }
 }

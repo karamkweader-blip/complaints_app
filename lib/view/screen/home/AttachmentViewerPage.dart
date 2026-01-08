@@ -57,7 +57,6 @@ class AttachmentViewerPage extends StatelessWidget {
       );
     }
 
-    //  باقي الأنواع (word - txt - zip - ... )
     return Scaffold(
       appBar: AppBar(
         title: Text("فتح ملف", style: TextStyle(color: Colors.white)),
@@ -79,9 +78,7 @@ class AttachmentViewerPage extends StatelessWidget {
     );
   }
 
-  // -----------------------------
-  //  تنزيل الملف + فتحه خارجياً
-  // -----------------------------
+ 
   Future<void> _downloadAndOpenFile(String url) async {
     try {
       final response = await http.get(
