@@ -12,12 +12,26 @@ class ComplaintScreen extends StatelessWidget {
 
   final ComplaintController controller = Get.put(ComplaintController());
 
+// دالة لحساب حجم الخط المتجاوب
+  double getResponsiveFontSize(double baseSize) {
+    double width = Get.width;
+    if (width > 600) { // Tablet
+      return baseSize * 1.2;
+    } else if (width > 400) { // Mobile كبير
+      return baseSize;
+    } else { // Mobile صغير
+      return baseSize * 0.9;
+    }
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8F9FD),
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(70),
+        preferredSize: Size.fromHeight(Get.height * 0.1), // 10% من ارتفاع الشاشة
         child: AppBar(
           elevation: 0,
           centerTitle: true,

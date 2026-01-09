@@ -22,6 +22,18 @@ class AttachmentViewerPage extends StatelessWidget {
     required this.token, required String fileUrl,
   });
 
+  // دالة لحساب حجم الخط المتجاوب
+  double getResponsiveFontSize(double baseSize) {
+    double width = Get.width;
+    if (width > 600) { // Tablet
+      return baseSize * 1.2;
+    } else if (width > 400) { // Mobile كبير
+      return baseSize;
+    } else { // Mobile صغير
+      return baseSize * 0.9;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final url = "${baseURL}attachments/show/$fileId";

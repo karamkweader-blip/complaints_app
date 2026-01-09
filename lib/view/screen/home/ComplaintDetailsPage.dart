@@ -15,6 +15,17 @@ class ComplaintDetailsPage extends StatelessWidget {
 
   const ComplaintDetailsPage({super.key, required this.complaintId});
 
+// دالة لحساب حجم الخط المتجاوب
+  double getResponsiveFontSize(double baseSize) {
+    double width = Get.width;
+    if (width > 600) { // Tablet
+      return baseSize * 1.2;
+    } else if (width > 400) { // Mobile كبير
+      return baseSize;
+    } else { // Mobile صغير
+      return baseSize * 0.9;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ComplaintDetailsController>(

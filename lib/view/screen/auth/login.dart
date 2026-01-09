@@ -35,18 +35,22 @@ class Login extends StatelessWidget {
           return await alertExitApp();
         },
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+         padding: EdgeInsets.symmetric(
+  vertical: Get.height * 0.02,  
+  horizontal: Get.width * 0.06, 
+),
+
+
           child: Form(
             key: controller.formstate,
             child: ListView(
               children: [
                 const LogoAuth(),
-                const SizedBox(height: 20),
+SizedBox(height: Get.height * 0.02),
                 CustomTextTitleAuth(text: "10".tr),
-                const SizedBox(height: 10),
+SizedBox(height: Get.height * 0.01), 
                 CustomTextBodyAuth(text: "11".tr),
-                const SizedBox(height: 15),
-                CustonTextFormAuth(
+SizedBox(height: Get.height * 0.015),                 CustonTextFormAuth(
                   valid: (val) {
                     return validInput(val!, 5, 100, "email");
                   },
@@ -83,7 +87,7 @@ class Login extends StatelessWidget {
                   },
                 ),
 
-                const SizedBox(height: 20),
+SizedBox(height: Get.height * 0.02),
                 CustomTextSignUpOrSignIn(
                   textone: "16".tr,
                   texttwo: "17".tr,
